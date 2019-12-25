@@ -4,19 +4,19 @@ Play with Spring Webflux, RSocket API and reactive streams...
 _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and reactive streams!_
 
 ```
-               users-command
-                 +-------+    TCP
-       COMMAND   | WRITE |  RSocket
-       HTTP ,-~->~  SIDE ~<-~->~.    +-------+      _______
-           /     | :8081 |       \   |       |     '       `
-   _O_ ->~'      +-------+        `->~       |     |  D B  |
-    |                                | users <~-~-~> EVENT |
-   / \ -<-.      +-------+        ,-<~       |     |  LOG  |
-           \     |  READ |       /   |       |     `_______,
-       HTTP `-~-<~  SIDE <~-~->~'    +-------+
-       QUERY     | :8082 |  RSocket
-       STREAM    +-------+    TCP
-                users-query
+                 users-command
+                   +-------+     TCP
+         COMMAND   | WRITE |   RSocket
+         HTTP ,-~->~  SIDE ~<-~->~.      +-------+      _______
+             /     | :8081 |       \     |       |     '       `
+   _O_ -~->~'      +-------+        `-~->-       |     |  D B  |
+    |                                    | users <~-~-~> EVENT |
+   / \ -~-<-.      +-------+        ,-<-~-       |     |  LOG  |
+             \     |  READ |       /     |       |     `_______,
+         HTTP `-~-<~  SIDE <~-~->~'      +-------+
+         QUERY     | :8082 |   RSocket
+         STREAM    +-------+     TCP
+                  users-query
 ```
 
 **required jdk 11**
