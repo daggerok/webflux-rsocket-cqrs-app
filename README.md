@@ -9,9 +9,9 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
          COMMAND   | WRITE |   RSocket
          HTTP ,-~->~  SIDE ~>-~->~.                         _______
              /     | :8081 |       \  shared +-------+     '       `
-   _O_ -~->~'      +-------+        `-~->-~->~       |     |  D B  |
+   _O_ -~->~'      +-------+        `-~->-~->~ :7000 |     |  D B  |
     |                               | single | users <~-~-~> EVENT |
-   / \ -<-~-.      +-------+        ,-<-~-<-~-       |     |  LOG  |
+   / \ -<-~-.      +-------+        ,-<-~-<-~- :7000 |     |  LOG  |
              \     |  READ |       / connect.+-------+     `_______,
          HTTP `-~-<~  SIDE <-~-~<-'          
          QUERY     | :8082 |   RSocket
