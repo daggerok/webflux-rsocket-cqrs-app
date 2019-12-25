@@ -1,0 +1,49 @@
+notifications:
+  email: false
+git:
+  quiet: true
+  depth: false
+language: java
+jdk: openjdk11
+python: 3.7
+os: linux
+arch: amd64
+addons:
+  apt:
+    update: true
+    packages:
+      - python3-pip
+      - curl
+install: true
+before_install:
+  - sudo pip3 install --upgrade pip setuptools
+  - sudo pip install --upgrade httpie
+  - |
+    if [ ! -f ${HOME}/.local/daggerok/bash-functions/master/main.bash ] ; then
+      mkdir -p ${HOME}/.local/daggerok/bash-functions/master
+      curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash > ${HOME}/.local/daggerok/bash-functions/master/main.bash
+    fi
+    source ~/.local/daggerok/bash-functions/master/main.bash
+  - stop_any 8081 8082 8080 7000 80
+jobs:
+  include:
+    - stage: test
+      name: test
+      before_script:
+        - cd $TRAVIS_BUILD_DIR && ./mvnw
+        - java -jar $TRAVIS_BUILD_DIR/users/target/*.jar &
+        - java -jar $TRAVIS_BUILD_DIR/users-query/target/*.jar &
+        - java -jar $TRAVIS_BUILD_DIR/users-command/target/*.jar &
+        - wait_for 7000 8080 8081 8082
+      script:
+        - http --stream :8082/stream-users Accept:'application/stream+json' &
+        - http :8082/find-users
+        - http :8081 name="Maksim Ko" username=maksimko
+        - http :8081 name="Ololo Trololo" username=ololo.trololo
+      after_script: stop_any 8082 8081 8080 7000 80
+cache:
+  pip: true
+  packages: true
+  directories:
+    - ~/.local/daggerok
+    - ~/.m2

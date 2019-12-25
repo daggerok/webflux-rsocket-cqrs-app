@@ -1,0 +1,24 @@
+POST http://localhost:8081/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "max",
+  "name": "Max"
+}
+
+###
+GET http://localhost:8082/find-users
+Accept: application/json
+
+###
+GET http://localhost:8082/find-users
+Accept: application/stream+json
+
+###
+GET http://localhost:8082/find-users
+Accept: text/event-stream
+
+###
+GET http://localhost:8082/
+Accept: application/json
