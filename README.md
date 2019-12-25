@@ -1,5 +1,5 @@
 # webflux-rsocket-cqrs-app [![Build Status](https://travis-ci.org/daggerok/webflux-rsocket-cqrs-app.svg?branch=master)](https://travis-ci.org/daggerok/webflux-rsocket-cqrs-app)
-Play with Spring Webflux, RSocket API and reactive streams...
+Play with Spring Webflux, RSocket API, R2DBC and reactive streams...
 
 _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and reactive streams!_
 
@@ -7,12 +7,12 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
                  users-command
                    +-------+     TCP
          COMMAND   | WRITE |   RSocket
-         HTTP ,-~->~  SIDE ~>-~->~.                         _______
-             /     | :8081 |       \  shared +-------+     '       `
-   _O_ -~->~'      +-------+        `-~->-~->~ :7000 |     |  D B  |
-    |                               | single | users <~-~-~> EVENT |
-   / \ -<-~-.      +-------+        ,-<-~-<-~- :7000 |     |  LOG  |
-             \     |  READ |       / connect.+-------+     `_______,
+         HTTP ,-~->~  SIDE ~>-~->~.                           _______
+             /     | :8081 |       \  shared +-------+       '       `
+   _O_ -~->~'      +-------+        `-~->-~->~ :7000 | R2DBC |  D B  |
+    |                               | single | users <~-~-~-~> EVENT |
+   / \ -<-~-.      +-------+        ,-<-~-<-~- :7000 |       |  LOG  |
+             \     |  READ |       / connect.+-------+       `_______,
          HTTP `-~-<~  SIDE <-~-~<-'          
          QUERY     | :8082 |   RSocket
          STREAM    +-------+     TCP
