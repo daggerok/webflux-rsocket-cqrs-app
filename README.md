@@ -11,9 +11,9 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
              /     | :8081 |       \  shared +-------+     '       `
    _O_ -~->~'      +-------+        `-~-<-~->~       |     |  D B  |
     |                               | single | users <~-~-~> EVENT |
-   / \ -<-~-.      +-------+        ,-<-~-<-~-       |     |  LOG  |
+   / \ -<-~-.      +-------+        ,->-~-<-~-       |     |  LOG  |
              \     |  READ |       / connect.+-------+     `_______,
-         HTTP `-~-<~  SIDE <-~-~<-'          
+         HTTP `-~-<~  SIDE >-~-~<-'          
          QUERY     | :8082 |   RSocket
          STREAM    +-------+     TCP
                   users-query
