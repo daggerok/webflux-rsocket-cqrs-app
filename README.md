@@ -44,7 +44,7 @@ killall -9 java
 
 * [Reactor mapOrEmpty workaround](https://github.com/reactor/reactor-core/issues/1952)
 * [WebFlux FluxProcessors, FluxSink, WebFlux Emitter, broadcasters](https://github.com/daggerok/webflux-reactor-broadcaster/blob/master/src/main/java/com/example/broadcaster/MyBroadcaster.java)
-* [H2 RANDOM_UUID](https://stackoverflow.com/questions/41112332/generate-uuid-values-by-default-for-each-row-on-column-of-uuid-type-in-h2-databa) 
+* [H2 RANDOM_UUID()](https://stackoverflow.com/questions/41112332/generate-uuid-values-by-default-for-each-row-on-column-of-uuid-type-in-h2-databa) 
 * [Some R2DBC helpful issue with solutions](https://github.com/spring-projects/spring-data-r2dbc/issues/218)
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)
