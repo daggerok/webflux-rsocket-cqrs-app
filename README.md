@@ -7,13 +7,13 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
                  users-command
                    +-------+     TCP
          COMMAND   | WRITE |   RSocket
-         HTTP ,-~->~  SIDE ~<-~->~.                         _______
+         HTTP ,-~->~  SIDE ~>-~->~.                         _______
              /     | :8081 |       \  shared +-------+     '       `
-   _O_ -~->~'      +-------+        `-~-<-~->~       |     |  D B  |
+   _O_ -~->~'      +-------+        `-~->-~->~       |     |  D B  |
     |                               | single | users <~-~-~> EVENT |
-   / \ -<-~-.      +-------+        ,->-~-<-~-       |     |  LOG  |
+   / \ -<-~-.      +-------+        ,-<-~-<-~-       |     |  LOG  |
              \     |  READ |       / connect.+-------+     `_______,
-         HTTP `-~-<~  SIDE >-~-~<-'          
+         HTTP `-~-<~  SIDE <-~-~<-'          
          QUERY     | :8082 |   RSocket
          STREAM    +-------+     TCP
                   users-query
