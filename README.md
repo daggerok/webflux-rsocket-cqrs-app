@@ -1,7 +1,7 @@
 # webflux-rsocket-cqrs-app [![Build Status](https://travis-ci.org/daggerok/webflux-rsocket-cqrs-app.svg?branch=master)](https://travis-ci.org/daggerok/webflux-rsocket-cqrs-app)
 Play with Spring Webflux, RSocket API, R2DBC and reactive streams...
 
-_Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and reactive streams!_
+_Full non-blocking end-to-end reactive stack by using RSocket, WebFlux, R2DBC and reactive streams!_
 
 ```
                  users-command
