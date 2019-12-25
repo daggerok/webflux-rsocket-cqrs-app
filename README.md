@@ -13,7 +13,7 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
     |                               | single | users <~-~-~> EVENT |
    / \ -~-<-.      +-------+        ,->-~-<-~*       |     |  LOG  |
              \     |  READ |       / connect.+-------+     `_______,
-         HTTP `-~-<~  SIDE <~-~->~'          
+         HTTP `-~-<~  SIDE <-~-~>-'          
          QUERY     | :8082 |   RSocket
          STREAM    +-------+     TCP
                   users-query
