@@ -5,7 +5,7 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
 
 ```
                users-command
-        HTTP     +-------+    TCP
+       HTTP      +-------+    TCP
        COMMAND   | WRITE |  RSocket
             ,-~->~  SIDE ~<-~->~.    +-------+      ____
            /     | :8081 |       \   |       |     '    `
@@ -14,9 +14,9 @@ _Full non-blocking end-to-end reactive stack by using RSocket, WebFlux and react
    / \ -<-.      +-------+        ,-<~       |     |    |
            \     |  READ |       /   |       |     `____,
             `-~-<~  SIDE <~-~->~'    +-------+
-        QUERY    | :8082 |  RSocket
-        HTTP     +-------+    TCP
-                users-query
+       HTTP      | :8082 |  RSocket
+       QUERY     +-------+    TCP
+       STREAM   users-query
 ```
 
 **required jdk 11**
