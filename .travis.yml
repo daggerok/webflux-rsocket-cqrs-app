@@ -36,9 +36,10 @@ jobs:
         - java -jar $TRAVIS_BUILD_DIR/users-command/target/*.jar &
         - wait_for 7000 8080 8081 8082
       script:
+        - http :8082
+        - curl localhost:8082/stream-users &
         - http :8082/find-users
-        - http --stream :8082/stream-users &
-        - sleep 1
+        #- http get --stream :8082/stream-users &
         #- http --stream :8082/stream-users Accept:'application/stream+json' &
         - http :8081 name="Maksim Ko" username=maksimko
         - http :8081 name="Ololo Trololo" username=ololo.trololo
