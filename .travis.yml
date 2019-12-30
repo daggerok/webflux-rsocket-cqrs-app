@@ -40,8 +40,8 @@ jobs:
         - http --stream ":8082/stream-users?query=billy&?query=bob" Accept:"application/stream+json" &
         - http :8081 name="Maksim Ko" username=maksimko >/dev/null
         - http :8081 name="Ololo Trololo" username=ololo.trololo >/dev/null
-        - http :8081 name="Fax" username=billy >/dev/null
-        - http :8081 name="Max" username=bob >/dev/null
+        - http :8081 name="Billy Bob Thornton" username=billy.bob >/dev/null
+        - http :8081 name="Billy" username=Max >/dev/null
       after_script: stop_any 8082 8081 8080 7000 80
     - stage: test
       name: test

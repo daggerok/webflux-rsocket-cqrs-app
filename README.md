@@ -40,6 +40,21 @@ http post :8081 name=trololo username=trololo
 killall -9 java
 ```
 
+**parallel subscription filtering**
+
+```bash
+# subscribe with filters:
+curl "localhost:8082/stream-users/?query=max&?query=fax" &
+http --stream ":8082/stream-users?query=billy&?query=bob" Accept:"application/stream+json" &
+# this won't be delivered to subscribers:
+http :8081 name="Maksim Ko" username=maksimko >/dev/null
+http :8081 name="Ololo Trololo" username=ololo.trololo >/dev/null
+# this will be seen:delivered only to second subscriber:
+http :8081 name="Billy Bob Thornton" username=billy.bob >/dev/null
+# this will be seen:delivered to both subscriber:
+http :8081 name="Billy" username=Max >/dev/null
+```
+
 ## resources
 
 * [Reactor mapOrEmpty workaround](https://github.com/reactor/reactor-core/issues/1952)
