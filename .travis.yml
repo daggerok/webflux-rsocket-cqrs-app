@@ -28,6 +28,22 @@ before_install:
 jobs:
   include:
     - stage: test
+      name: parallel test
+      before_script:
+        - cd $TRAVIS_BUILD_DIR && ./mvnw
+        - java -jar $TRAVIS_BUILD_DIR/users/target/*.jar &
+        - java -jar $TRAVIS_BUILD_DIR/users-query/target/*.jar &
+        - java -jar $TRAVIS_BUILD_DIR/users-command/target/*.jar &
+        - wait_for 7000 8080 8081 8082
+      script:
+        - curl "localhost:8082/stream-users/?query=max&?query=fax" &
+        - http --stream ":8082/stream-users?query=billy&?query=bob" Accept:"application/stream+json" &
+        - http :8081 name="Maksim Ko" username=maksimko >/dev/null
+        - http :8081 name="Ololo Trololo" username=ololo.trololo >/dev/null
+        - http :8081 name="Fax" username=billy >/dev/null
+        - http :8081 name="Max" username=bob >/dev/null
+      after_script: stop_any 8082 8081 8080 7000 80
+    - stage: test
       name: test
       before_script:
         - cd $TRAVIS_BUILD_DIR && ./mvnw
@@ -39,7 +55,7 @@ jobs:
         - http :8082
         - curl localhost:8082/stream-users &
         - http :8082/find-users
-        #- http get --stream :8082/stream-users &
+        #- http --stream :8082/stream-users &
         #- http --stream :8082/stream-users Accept:'application/stream+json' &
         - http :8081 name="Maksim Ko" username=maksimko
         - http :8081 name="Ololo Trololo" username=ololo.trololo

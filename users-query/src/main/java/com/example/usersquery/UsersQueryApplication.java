@@ -8,16 +8,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,9 +40,14 @@ class UserQueryResource {
             MediaType.APPLICATION_STREAM_JSON_VALUE,
             MediaType.TEXT_EVENT_STREAM_VALUE,
     })
-    Flux<User> streamUsers() {
-        return rSocket.flatMapMany(rr -> rr.route("stream-users")
-                                           .retrieveFlux(User.class));
+    Flux<User> streamUsers(@RequestParam(name = "query", required = true) List<String> query) {
+        var qs = query.stream().map(String::toLowerCase).collect(Collectors.toList());
+        var stream = rSocket.flatMapMany(rr -> rr.route("stream-users")
+                                                 .retrieveFlux(User.class));
+        return qs.isEmpty() ? stream // @formatter:off
+                : stream.filter(user -> qs.stream().anyMatch(user.getUsername().toLowerCase()::contains) ||
+                                        qs.stream().anyMatch(user.getName().toLowerCase()::contains));
+        // @formatter:on
     }
 
     @GetMapping
